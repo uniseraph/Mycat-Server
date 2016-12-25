@@ -42,12 +42,28 @@ public class PartitionBySubstringRange extends AbstractPartitionAlgorithm implem
      */
     private String mapFile;
 
+    public void setFromIndex(int fromIndex) {
+        this.fromIndex = fromIndex;
+    }
+
+    public void setLength(int length) {
+        this.length = length;
+    }
+
+    public void setRadix(int radix) {
+        this.radix = radix;
+    }
+
+    public void setMapFile(String mapFile) {
+        this.mapFile = mapFile;
+    }
+
     private int[] endValues;
     private int[] nodeIndexes;
 
     @Override
     public void init() {
-        InputStream input = getClass().getClassLoader().getResourceAsStream(mapFile);
+        InputStream input = PartitionBySubstringRange.class.getResourceAsStream(mapFile);
         if (input == null) {
             throw new RuntimeException("Cannot find the map file in classpath: " + mapFile);
         }
@@ -156,7 +172,12 @@ public class PartitionBySubstringRange extends AbstractPartitionAlgorithm implem
         }
 
         int from = fromIndex < 0 ? fromIndex - length + 1 : fromIndex;
-        String substr = StringUtils.substring(columnValue, from, from + length);
+        int end = from + length;
+        if (fromIndex < 0 && end == 0) {
+            end = total;
+        }
+
+        String substr = StringUtils.substring(columnValue, from, end);
         int value = Integer.parseInt(substr, radix);
         int index = Arrays.binarySearch(endValues, value);
         if (index == endValues.length) {
@@ -174,6 +195,11 @@ public class PartitionBySubstringRange extends AbstractPartitionAlgorithm implem
 
     public int getPartitionNum() {
         return nodeIndexes.length;
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 
     private static class Range implements Comparable<Range> {
