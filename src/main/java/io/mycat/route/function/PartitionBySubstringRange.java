@@ -1,6 +1,5 @@
 package io.mycat.route.function;
 
-import io.mycat.config.model.rule.RuleAlgorithm;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -143,7 +142,7 @@ public class PartitionBySubstringRange extends AbstractPartitionAlgorithm implem
         }
     }
 
-    @Override
+
     public Integer calculate(String columnValue) {
         if (columnValue == null) {
             throw new RuntimeException("Null column value for PartitionBySubstringRange: " + columnValue);
@@ -171,7 +170,7 @@ public class PartitionBySubstringRange extends AbstractPartitionAlgorithm implem
         return nodeIndexes[index];
     }
 
-    @Override
+
     public int getPartitionNum() {
         return nodeIndexes.length;
     }
