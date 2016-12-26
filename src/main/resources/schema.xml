@@ -14,13 +14,13 @@
 	<dataHost name="dbhost1" maxCon="1000" minCon="10" balance="0"
 			  writeType="0" dbType="mysql" dbDriver="native">
 		<heartbeat>select 1</heartbeat>
-		<writeHost host="localhost" url="localhost:13306" user="root" password="rootpass"/>
+		<writeHost host="127.0.0.1" url="127.0.0.1:13306" user="root" password="rootpass"/>
 	</dataHost>
 
 	<dataHost name="dbhost2" maxCon="1000" minCon="10" balance="0"
 			  writeType="0" dbType="mysql" dbDriver="native">
 		<heartbeat>select 1</heartbeat>
-		<writeHost host="localhost" url="localhost:23306" user="root" password="rootpass"/>
+		<writeHost host="127.0.0.1" url="127.0.0.1:23306" user="root" password="rootpass"/>
 	</dataHost>
 
 </mycat:schema>
