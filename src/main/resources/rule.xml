@@ -15,17 +15,17 @@
 			<algorithm>user_rule</algorithm>
 		</rule>
 	</tableRule>
-	<function name="user_rule" class="io.mycat.route.function.PartitionBySubstringRange">
-		<property name="fromIndex">-1</property>
-		<property name="length">2</property>
-		<property name="mapFile">/user-partition.txt</property>
-	</function>
 	<tableRule name="order_rule">
 		<rule>
 			<columns>id</columns>
 			<algorithm>order_rule</algorithm>
 		</rule>
 	</tableRule>
+	<function name="user_rule" class="io.mycat.route.function.PartitionBySubstringRange">
+		<property name="fromIndex">-1</property>
+		<property name="length">2</property>
+		<property name="mapFile">/user-partition.txt</property>
+	</function>
 	<function name="order_rule" class="io.mycat.route.function.PartitionBySubstringRange">
 		<property name="fromIndex">-1</property>
 		<property name="length">2</property>
