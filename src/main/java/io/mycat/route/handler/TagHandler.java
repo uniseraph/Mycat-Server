@@ -1,7 +1,5 @@
 package io.mycat.route.handler;
 
-import io.mycat.MycatServer;
-import io.mycat.backend.datasource.PhysicalDBNode;
 import io.mycat.backend.mysql.nio.handler.SingleNodeHandler;
 import io.mycat.cache.LayerCachePool;
 import io.mycat.config.model.SchemaConfig;
@@ -15,7 +13,6 @@ import org.slf4j.LoggerFactory;
 
 import java.sql.SQLNonTransientException;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Created by jackychenb on 27/12/2016.
