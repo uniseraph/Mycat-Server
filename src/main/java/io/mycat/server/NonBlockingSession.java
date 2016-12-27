@@ -99,6 +99,10 @@ public class NonBlockingSession implements Session {
     public BackendConnection removeTarget(RouteResultsetNode key) {
         return target.remove(key);
     }
+
+    public SingleNodeHandler getSingleNodeHandler() {
+        return this.singleNodeHandler;
+    }
     
     @Override
     public void execute(RouteResultset rrs, int type) {

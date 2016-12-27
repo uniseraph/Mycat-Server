@@ -2,6 +2,7 @@ package io.mycat.route.handler;
 
 import io.mycat.MycatServer;
 import io.mycat.backend.datasource.PhysicalDBNode;
+import io.mycat.backend.mysql.nio.handler.SingleNodeHandler;
 import io.mycat.cache.LayerCachePool;
 import io.mycat.config.model.SchemaConfig;
 import io.mycat.config.model.SystemConfig;
@@ -31,10 +32,13 @@ public class TagHandler implements HintHandler {
             throw new SQLNonTransientException(msg);
         }
 
-        Set<RouteResultsetNode> nodes = sc.getSession2().getTargetKeys();
-        if (nodes.size() == 1) {
+//        Set<RouteResultsetNode> nodes = sc.getSession2().getTargetKeys();
+//        if (nodes.size() == 1) {
+//            RouteResultsetNode node = nodes.toArray(new RouteResultsetNode[1])[0];
+        SingleNodeHandler handler = sc.getSession2().getSingleNodeHandler();
+        if (handler != null) {
+            RouteResultsetNode node = handler.getNode();
             RouteResultset rrs = new RouteResultset(realSQL, sqlType);
-            RouteResultsetNode node = nodes.toArray(new RouteResultsetNode[1])[0];
             return RouterUtil.routeToSingleNode(rrs, node.getName(), realSQL);
         }
 
