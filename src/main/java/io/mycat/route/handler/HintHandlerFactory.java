@@ -19,6 +19,7 @@ public class HintHandlerFactory {
         hintHandlerMap.put("schema",new HintSchemaHandler());
         hintHandlerMap.put("datanode",new HintDataNodeHandler());
         hintHandlerMap.put("catlet",new HintCatletHandler());
+        hintHandlerMap.put("tag",new TagHandler());
         
         // 新增sql hint（注解）/*#mycat:db_type=master*/ 和 /*#mycat:db_type=slave*/  和 /*mycat:db_type=slave*/
         // 该hint可以和 /*balance*/ 一起使用
