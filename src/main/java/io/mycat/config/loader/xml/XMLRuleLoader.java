@@ -27,10 +27,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLSyntaxErrorException;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
+import io.mycat.config.loader.zkprocess.entity.rule.tablerule.Rule;
+import org.apache.commons.lang.ArrayUtils;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -136,23 +136,28 @@ public class XMLRuleLoader {
 				//获取rule标签
 				NodeList ruleNodes = e.getElementsByTagName("rule");
 				int length = ruleNodes.getLength();
-				if (length > 1) {
-					throw new ConfigException("only one rule can defined :"
-							+ name);
-				}
+//				if (length > 1) {
+//					throw new ConfigException("only one rule can defined :"
+//							+ name);
+//				}
 				//目前只处理第一个，未来可能有多列复合逻辑需求
 				//RuleConfig是保存着rule与function对应关系的对象
-				RuleConfig rule = loadRule((Element) ruleNodes.item(0));
-				String funName = rule.getFunctionName();
-				//判断function是否存在，获取function
-				AbstractPartitionAlgorithm func = functions.get(funName);
-				if (func == null) {
-					throw new ConfigException("can't find function of name :"
-							+ funName);
+				RuleConfig[] rules = new RuleConfig[length];
+				for (int j = 0; j < length; j++) {
+					RuleConfig rule = loadRule((Element) ruleNodes.item(j));
+					String funName = rule.getFunctionName();
+					//判断function是否存在，获取function
+					AbstractPartitionAlgorithm func = functions.get(funName);
+					if (func == null) {
+						throw new ConfigException("can't find function of name :"
+								+ funName);
+					}
+					rule.setRuleAlgorithm(func);
+					rules[j] = rule;
 				}
-				rule.setRuleAlgorithm(func);
+
 				//保存到tableRules
-				tableRules.put(name, new TableRuleConfig(name, rule));
+				tableRules.put(name, new TableRuleConfig(name, rules[0], rules));
 			}
 		}
 	}

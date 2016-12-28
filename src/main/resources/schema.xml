@@ -3,9 +3,9 @@
 <mycat:schema xmlns:mycat="http://io.mycat/">
 
 	<schema name="sk_dev" checkSQLschema="true" sqlMaxLimit="100" dataNode="dn1">
-		<table name="User" primaryKey="id" dataNode="dn1,dn2" rule="user_rule" />
-		<table name="OrderForm" primaryKey="id" dataNode="dn1,dn2" rule="order_rule" />
-		<table name="OrderDetail" primaryKey="id" dataNode="dn1,dn2" rule="order_rule" />
+		<table name="User" primaryKey="id" dataNode="dn1,dn2" rule="rule_user" />
+		<table name="OrderForm" primaryKey="id" dataNode="dn1,dn2" rule="rule_order_form" />
+		<table name="OrderDetail" primaryKey="id" dataNode="dn1,dn2" rule="rule_order_detail" />
 	</schema>
 
 	<dataNode name="dn1" dataHost="dbhost1" database="sk_dev" />

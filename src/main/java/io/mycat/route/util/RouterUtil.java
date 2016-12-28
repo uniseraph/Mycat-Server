@@ -1221,9 +1221,9 @@ public class RouterUtil {
 			} else {//非全局表：分库表、childTable、其他
 				Map<String, Set<ColumnRoutePair>> columnsMap = entry.getValue();
 				String joinKey = tableConfig.getJoinKey();
-				String partionCol = tableConfig.getPartitionColumn();
+//				String partionCol = tableConfig.getPartitionColumn();
 				String primaryKey = tableConfig.getPrimaryKey();
-				boolean isFoundPartitionValue = partionCol != null && entry.getValue().get(partionCol) != null;
+//				boolean isFoundPartitionValue = partionCol != null && entry.getValue().get(partionCol) != null;
                 boolean isLoadData=false;
                 if (LOGGER.isDebugEnabled()
 						&& sql.startsWith(LoadData.loadDataHint)||rrs.isLoadData()) {
@@ -1264,7 +1264,19 @@ public class RouterUtil {
 						}
 					}
 				}
-				if (isFoundPartitionValue) {//分库表
+
+				String partionCol = null;
+                RuleConfig[] rules = tableConfig.getRules();
+                if (rules != null) {
+                	for (RuleConfig rule : rules) {
+                		String col = rule.getColumn();
+						if (columnsMap.get(col) != null) {
+							partionCol = col;
+						}
+					}
+				}
+
+				if (partionCol != null) {//分库表
 					Set<ColumnRoutePair> partitionValue = columnsMap.get(partionCol);
 					if(partitionValue == null || partitionValue.size() == 0) {
 						if(tablesRouteMap.get(tableName) == null) {
