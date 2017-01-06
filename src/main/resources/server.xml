@@ -11,6 +11,7 @@
 <mycat:server xmlns:mycat="http://io.mycat/">
 	<system>
 		<property name="defaultSqlParser">druidparser</property>
+		<property name="handleDistributedTransactions">1</property>
 	</system>
 	<user name="mycat">
 		<property name="password">mycat</property>
