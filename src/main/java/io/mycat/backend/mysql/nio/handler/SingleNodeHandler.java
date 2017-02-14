@@ -119,6 +119,10 @@ public class SingleNodeHandler implements ResponseHandler, Terminatable, LoadDat
         
 	}
 
+	public RouteResultsetNode getNode() {
+		return this.node;
+	}
+
 	@Override
 	public void terminate(Runnable callback) {
 		boolean zeroReached = false;

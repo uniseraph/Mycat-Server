@@ -388,6 +388,7 @@ public class XMLSchemaLoader implements SchemaLoader {
 						autoIncrement, needAddLimit, tableType, dataNode,
 						getDbType(dataNode),
 						(tableRuleConfig != null) ? tableRuleConfig.getRule() : null,
+						(tableRuleConfig != null) ? tableRuleConfig.getRules() : null,
 						ruleRequired, null, false, null, null,subTables);
 				
 				checkDataNodeExists(table.getDataNodes());
@@ -513,7 +514,7 @@ public class XMLSchemaLoader implements SchemaLoader {
 			TableConfig table = new TableConfig(cdTbName, primaryKey,
 					autoIncrement, needAddLimit,
 					TableConfig.TYPE_GLOBAL_DEFAULT, dataNodes,
-					getDbType(dataNodes), null, false, parentTable, true,
+					getDbType(dataNodes), null, null, false, parentTable, true,
 					joinKey, parentKey, subTables);
 			
 			if (tables.containsKey(table.getName())) {

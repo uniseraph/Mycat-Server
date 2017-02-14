@@ -25,8 +25,9 @@ public class RuleFunctionSuitTableTest {
 		Assert.assertEquals(3, autoPartition.getPartitionNum());
 		RuleConfig rule = new RuleConfig("id", "auto-partition-long");
 		rule.setRuleAlgorithm(autoPartition);
+		RuleConfig[] rules = new RuleConfig[] { rule };
 		TableConfig tableConf = new TableConfig("test", "id", true, false, -1, "dn1,dn2",
-				null, rule, true, null, false, null, null, null);
+				null, rule, rules, true, null, false, null, null, null);
 		int suit1 = autoPartition.suitableFor(tableConf);
 		Assert.assertEquals(-1, suit1);
 		
@@ -55,8 +56,9 @@ public class RuleFunctionSuitTableTest {
 		
 		RuleConfig rule = new RuleConfig("col_date", "partition-date");
 		rule.setRuleAlgorithm(partition);
+		RuleConfig[] rules = new RuleConfig[] { rule };
 		TableConfig tableConf = new TableConfig("test", "id", true, false, -1, "dn1,dn2,dn3",
-				null, rule, true, null, false, null, null, null);
+				null, rule, rules, true, null, false, null, null, null);
 		int suit1 = partition.suitableFor(tableConf);
 		
 		Assert.assertEquals(-1, suit1);
@@ -91,8 +93,9 @@ public class RuleFunctionSuitTableTest {
 		
 		RuleConfig rule = new RuleConfig("id", "partition-hash-mod");
 		rule.setRuleAlgorithm(partition);
+		RuleConfig[] rules = new RuleConfig[] { rule };
 		TableConfig tableConf = new TableConfig("test", "id", true, false, -1, "dn1,dn2,dn3",
-				null, rule, true, null, false, null, null, null);
+				null, rule, rules, true, null, false, null, null, null);
 		int suit1 = partition.suitableFor(tableConf);
 		Assert.assertEquals(0, suit1);
 		
@@ -116,8 +119,9 @@ public class RuleFunctionSuitTableTest {
 		Assert.assertEquals(20, partition.getPartitionNum()); // partition = 20
 		RuleConfig rule = new RuleConfig("id", "partition-range-mod");
 		rule.setRuleAlgorithm(partition);
+		RuleConfig[] rules = new RuleConfig[] { rule };
 		TableConfig tableConf = new TableConfig("test", "id", true, false, -1, "dn$1-10",
-				null, rule, true, null, false, null, null, null);
+				null, rule, rules, true, null, false, null, null, null);
 		int suit1 = partition.suitableFor(tableConf);
 		Assert.assertEquals(-1, suit1);
 		
